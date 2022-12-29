@@ -1,12 +1,20 @@
-import { useState } from 'react';
-import { Container, Button } from '@mui/material';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Form from "./components/Form";
+import Layout from "./containers/Layout";
+import ClientsViewer from "./pages/ClientsViewer";
 
-function App() {
+const App = () => {
 
   return (
-    <Container maxWidth="xl">
-      <Button variant='contained'>Hola Mundo</Button>
-    </Container>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<ClientsViewer />} />
+          <Route path="/create-client" element={<Form />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
