@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import ClientsTable from '../components/ClientsTable';
 import Input from '../components/Input';
 
-const ClientsViewer = () => {
+const Home = () => {
   return (
     <Container sx={{
       display: "flex",
@@ -16,4 +16,4 @@ const ClientsViewer = () => {
   )
 }
 
-export default ClientsViewer;
+export default Home;

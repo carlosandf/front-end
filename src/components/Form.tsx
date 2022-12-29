@@ -10,6 +10,8 @@ const INITIAL_INPUTS_STATE = {
   phone: ""
 }
 
+const URL = import.meta.env.VITE_API_URL;
+
 const  Form: React.FC = () => {
   const [inputValue, setInputValue] = useState(INITIAL_INPUTS_STATE);
 
@@ -19,7 +21,6 @@ const  Form: React.FC = () => {
       ...inputValue,
       [inputName]: value
     });
-    console.log(inputValue)
   }
 
   const isCompleted = () => {
@@ -28,13 +29,12 @@ const  Form: React.FC = () => {
   }
 
   const handleSubmit = () => {
-    console.log({inputValue})
-    axios.post('http://localhost:3001/api/clients', inputValue)
+    axios.post(URL, inputValue)
       .then(res => {
         console.log(res)
         setInputValue(INITIAL_INPUTS_STATE);
       })
-      .catch(err => console.error('ERROOOR', err))
+      .catch(() => alert('En numero de identificación ya se encuentra registrado'))
   }
   return (
     <Box

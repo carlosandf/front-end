@@ -5,7 +5,7 @@ const Input = (props: any) => {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/clients')
+    fetch(import.meta.env.VITE_API_URL)
       .then(res => res.json())
       .then(data => {
         const list = data.map((client: any) => ({ label: client.fullName }))

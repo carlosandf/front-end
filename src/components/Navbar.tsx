@@ -28,7 +28,7 @@ interface Props {
 const drawerWidth = 240;
 const navItems = [
   { name: 'Clients', route: '/' },
-  { name: 'Add', route: '/create-client' },
+  { name: 'Add', route: '/register' },
 ];
 
 const Navbar = (props: Props) => {
@@ -40,7 +40,7 @@ const Navbar = (props: Props) => {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', position: "fixed" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
         Logo
       </Typography>

@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import DeleteIcon  from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import Input from './Input';
 import {
   Table,
@@ -36,18 +37,18 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const baseUrl = 'http://localhost:3001/api/clients'
+const URL = import.meta.env.VITE_API_URL
 
 const ClientsTable = () => {
   const [clients, setClients] = useState<any[]>([]);
 
   useEffect(() => {
-    axios.get(baseUrl)
+    axios.get(URL)
       .then(({ data }) => setClients(data));
   }, [])
 
   const handleDelete = (id: String) => {
-    axios.delete(`${baseUrl}/${id}`)
+    axios.delete(`${URL}/${id}`)
       .then(({data}) => {
         setClients(prevState => {
 					return prevState.filter(client => (
@@ -63,10 +64,10 @@ const ClientsTable = () => {
         <TableHead>
           <TableRow>
             <StyledTableCell>Nombre</StyledTableCell>
-            <StyledTableCell align="left">Apellido</StyledTableCell>
-            <StyledTableCell align="right">Identificación</StyledTableCell>
-            <StyledTableCell align="right">Dirección</StyledTableCell>
-            <StyledTableCell align="right">Telefono</StyledTableCell>
+            <StyledTableCell>Apellido</StyledTableCell>
+            <StyledTableCell>Identificación</StyledTableCell>
+            <StyledTableCell>Dirección</StyledTableCell>
+            <StyledTableCell align="center">Telefono</StyledTableCell>
             <StyledTableCell align="center">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -76,19 +77,20 @@ const ClientsTable = () => {
               <StyledTableCell component="th" scope="row">
                 {client.firstName}
               </StyledTableCell>
-              <StyledTableCell align="left">{client.lastname}</StyledTableCell>
-              <StyledTableCell align="right">{client.identification}</StyledTableCell>
-              <StyledTableCell align="right">{client.address}</StyledTableCell>
-              <StyledTableCell align="right">{client.phone}</StyledTableCell>
+              <StyledTableCell>{client.lastname}</StyledTableCell>
+              <StyledTableCell>{client.identification}</StyledTableCell>
+              <StyledTableCell>{client.address}</StyledTableCell>
+              <StyledTableCell align="center">{client.phone}</StyledTableCell>
               <StyledTableCell align="center">
                 <Container sx={{
-                  width: 100,
+                  width: 125,
                   display: "flex",
                   justifyContent: "space-between",
                   padding: "0 !important"
                 }}>
                   <DeleteIcon sx={{cursor: "pointer"}} onClick={() => handleDelete(client.id)} />
-                  <EditIcon sx={{cursor: "pointer"}} />
+                  <EditIcon  sx={{cursor: "pointer"}} />
+                  <OpenInFullIcon sx={{cursor: "pointer"}} />
                 </Container>
               </StyledTableCell>
             </StyledTableRow>
