@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Box, Button } from '@mui/material/';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { setClients } from '../redux/slices/clients';
+
 
 const INITIAL_INPUTS_STATE = {
   firstName: "",
@@ -14,6 +17,7 @@ const URL = import.meta.env.VITE_API_URL;
 
 const  Form: React.FC = () => {
   const [inputValue, setInputValue] = useState(INITIAL_INPUTS_STATE);
+  const dispatch = useAppDispatch();
 
   const handleChangeInput = (event:any, inputName:any) => {
     const { target: {value}} = event;
@@ -31,8 +35,9 @@ const  Form: React.FC = () => {
   const handleSubmit = () => {
     axios.post(URL, inputValue)
       .then(res => {
-        console.log(res)
+        dispatch(setClients([res.data]));
         setInputValue(INITIAL_INPUTS_STATE);
+        alert('Se agregó correctamente');
       })
       .catch(() => alert('En numero de identificación ya se encuentra registrado'))
   }
@@ -97,7 +102,13 @@ const  Form: React.FC = () => {
           onChange={(e) => handleChangeInput(e, "phone")}
         />
       </div>
-      <Button disabled={!isCompleted()} onClick={handleSubmit} variant="contained">Guardar</Button>
+      <Button
+        disabled={!isCompleted()}
+        onClick={handleSubmit}
+        variant="contained"
+      >
+        Guardar
+      </Button>
     </Box>
   );
 }

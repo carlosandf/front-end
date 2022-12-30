@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {TextField, Autocomplete} from '@mui/material/';
+import { useAppSelector } from '../hooks/redux';
 
-const Input = (props: any) => {
+const SearchInput = () => {
   const [options, setOptions] = useState([]);
+  const { clientsState: { clients } } = useAppSelector((state) => state);
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_API_URL)
-      .then(res => res.json())
-      .then(data => {
-        const list = data.map((client: any) => ({ label: client.fullName }))
-        setOptions(list)
-      })
-  }, [])
+    setOptions((): any => {
+      return clients.map((client: any) => ({ label: client.fullName }))
+    });
+  }, [clients])
 
   return (
     <Autocomplete
@@ -22,4 +21,4 @@ const Input = (props: any) => {
     />
   );
 }
-export default Input;
+export default SearchInput;

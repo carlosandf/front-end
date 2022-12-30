@@ -1,17 +1,19 @@
-import React from 'react'
 import Container from '@mui/material/Container';
 import ClientsTable from '../components/ClientsTable';
-import Input from '../components/Input';
+import SearchInput from '../components/SearchInput';
+import UpdateModal from '../components/ModalInfo';
 
 const Home = () => {
+
   return (
     <Container sx={{
       display: "flex",
       flexDirection: "column",
       alignItems: "center"
     }}>
-      <Input />
+      <SearchInput />
       <ClientsTable />
+      <UpdateModal />
     </Container>
   )
 }
