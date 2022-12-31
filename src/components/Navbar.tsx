@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import GroupsIcon from '@mui/icons-material/Groups';
 import {
   AppBar,
   Box,
@@ -22,8 +24,8 @@ interface Props {
 const drawerWidth = 240;
 
 const navItems = [
-  { name: 'Clients', route: '/' },
-  { name: 'Add', route: '/register' },
+  { name: 'Clients', route: '/', icon: <GroupsIcon/> },
+  { name: 'Add', route: '/register', icon: <AddCircleIcon/> },
 ];
 
 const Navbar = (props: Props) => {
@@ -42,6 +44,7 @@ const Navbar = (props: Props) => {
           <ListItem key={item.name} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
               <Button component={Link} to={item.route}  key={item.name}>
+                {item.icon}
                 {item.name}
               </Button>
             </ListItemButton>
@@ -67,10 +70,14 @@ const Navbar = (props: Props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex',  } }}>
             {navItems.map((item) => (
-              <Button component={Link} to={item.route}  key={item.name} sx={{ color: '#fff' }}>
-                {item.name}
+              <Button component={Link} to={item.route}
+                key={item.name} sx={{ color: '#fff', display: 'flex', alignItems: 'stretch', marginRight: 3}}>
+                <span style={{marginRight: 10 }}>
+                  {item.icon}
+                </span>
+                <span>{item.name}</span>
               </Button>
             ))}
           </Box>

@@ -1,17 +1,16 @@
 import { useAppSelector } from '../hooks/redux';
-import { Container } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { TextField, Box, Button } from '@mui/material/';
+import { TextField, Box, Button, Typography } from '@mui/material/';
 import { useAppDispatch } from '../hooks/redux';
-import { setClients } from '../redux/slices/clients';
+import { Client, setClients } from '../redux/slices/clients';
 import AlertMessage from '../components/AlertMessage';
 
 const URL = import.meta.env.VITE_API_URL;
 
 const EditInfo: React.FC = () => {
   const { clientsState: { client } } = useAppSelector((state) => state);
-  const [inputValue, setInputValue] = useState({});
+  const [inputValue, setInputValue] = useState<Client>({...client});
   const [message, setMessage] = useState<any>(null);
   const dispatch = useAppDispatch();
 
@@ -55,20 +54,26 @@ const EditInfo: React.FC = () => {
       noValidate
       autoComplete="off"
     >
-      {message}
+      <Typography id="modal-modal-title" variant="h5" component="h3" sx={{ mb: 3 }}>
+        Editar Información
+      </Typography>
+
+      { message }
+
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, 300px)",
         gap: 15,
         justifyItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginTop: 50
       }}>
         <TextField
           required
           id="outlined-required"
           label="Nombre"
           placeholder="Nombre"
-          defaultValue={client.firstName}
+          value={inputValue.firstName}
           onChange={(e) => handleChangeInput(e, "firstName")}
         />
         <TextField
@@ -76,7 +81,7 @@ const EditInfo: React.FC = () => {
           id="outlined-required"
           label="Apellido"
           placeholder="Apellido"
-          defaultValue={client.lastname}
+          value={inputValue.lastname}
           onChange={(e) => handleChangeInput(e, "lastname")}
         />
         <TextField
@@ -84,7 +89,7 @@ const EditInfo: React.FC = () => {
           id="outlined-number"
           label="Identificación"
           type="number"
-          defaultValue={client.identification}
+          value={inputValue.identification}
           onChange={(e) => handleChangeInput(e, "identification")}
         />
         <TextField
@@ -93,7 +98,7 @@ const EditInfo: React.FC = () => {
           label="Dirección"
           placeholder="Dirección"
           name="address"
-          defaultValue={client.address}
+          value={inputValue.address}
           onChange={(e) => handleChangeInput(e, "address")}
         />
         <TextField
@@ -102,7 +107,7 @@ const EditInfo: React.FC = () => {
           label="Celular"
           type="number"
           name="phone"
-          defaultValue={client.phone}
+          value={inputValue.phone}
           onChange={(e) => handleChangeInput(e, "phone")}
         />
       </div>

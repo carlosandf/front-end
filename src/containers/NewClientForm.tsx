@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Box, Button } from '@mui/material/';
+import { TextField, Box, Button, Typography } from '@mui/material/';
 import { useAppDispatch } from '../hooks/redux';
 import { setClients } from '../redux/slices/clients';
 import AlertMessage from '../components/AlertMessage';
@@ -56,21 +56,30 @@ const NewClientForm: React.FC = () => {
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        '& .MuiTextField-root': { m: 1, width: '100%' },
       }}
       style={{
         display: "grid",
-        placeContent: "center",
-        gap: "20px"
+        gap: "20px",
       }}
       noValidate
       autoComplete="off"
     >
+      <Typography id="modal-modal-title" variant="h5" component="h3" sx={{ mb: 3 }}>
+          Agregar un nuevo cliente
+      </Typography>
+
+      { message }
+
       <div style={{
         display: "grid",
-        placeItems: "center"
+        gridTemplateColumns: "repeat(auto-fill, 300px)",
+        gap: 15,
+        justifyItems: "center",
+        justifyContent: "center",
+        marginTop: 50
       }}>
-        {message}
+
         <TextField
           required
           id="outlined-required"
@@ -115,6 +124,7 @@ const NewClientForm: React.FC = () => {
         />
       </div>
       <Button
+        sx={{width: "95%", maxWidth: 400, margin: "auto"}}
         disabled={!isCompleted()}
         onClick={handleSubmit}
         variant="contained"

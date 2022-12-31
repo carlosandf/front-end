@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { setClients } from '../redux/slices/clients';
+import { setClients, Client, setAClient  } from '../redux/slices/clients';
 import { setModal } from '../redux/slices/modal';
 import { DataGrid, GridColDef, GridRowId, GridRowParams, GridSelectionModel } from '@mui/x-data-grid';
 import { Typography, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import InfoModal from '../components/InfoModal';
+import { Link } from 'react-router-dom';
 
 const columns: GridColDef[] = [
   { field: 'firstName', headerName: 'Nombre', width: 130 },
@@ -23,7 +25,6 @@ const ClientsTable = () => {
   const [selections, setSelections] = useState<GridRowId[]>([])
   const [loading, setLoading] = useState(true);
   const [infoClient, setInfoClient] = useState({})
-
 
   const dispatch = useAppDispatch();
 
@@ -47,9 +48,14 @@ const ClientsTable = () => {
     dispatch(setClients(newList))
   }
 
-  const handleUpdate = (data: GridRowParams) => {
+  const handleView = (data: GridRowParams) => {
     dispatch(setModal(true));
     setInfoClient(data.row);
+  }
+
+  const handleUpdate = () => {
+    const selection: String = selections[0].toString();
+    dispatch(setAClient(selection));
   }
 
   return (
@@ -63,7 +69,7 @@ const ClientsTable = () => {
               rows={clients}
               columns={columns}
               pageSize={5}
-              onRowClick={(data) => handleUpdate(data)}
+              onRowClick={(data) => handleView(data)}
               rowsPerPageOptions={[5]}
               checkboxSelection
               onSelectionModelChange={(selects) => setSelections(selects)}
@@ -74,20 +80,35 @@ const ClientsTable = () => {
         : <Typography>Cargando...</Typography>
       }
       <div style={{
-        width: "30%",
+        width: "100%",
         display: "flex",
         margin: "auto",
-        marginTop: 10
+        marginTop: 10,
+        flexWrap: "wrap",
+        justifyContent: "space-evenly",
       }}>
         {
           selections.length > 0 && (
-            <Button variant='contained'
-              sx={{margin: "auto"}}
+            <Button
+              variant='contained'
+              sx={{margin: "10px 0", width: "100%", maxWidth: "400px"}}
               onClick={() => handleDelete(selections)}
-              style={{width: "45%"}}
             >
               <DeleteIcon />
               Delete
+            </Button>
+          )
+        }
+        {
+          selections.length === 1 && (
+            <Button
+              component={Link} to="/edit-info"
+              variant='outlined'
+              sx={{margin: "10px 0", width: "100%", maxWidth: "400px"}}
+              onClick={handleUpdate}
+            >
+              <EditIcon />
+              Editar
             </Button>
           )
         }
