@@ -21,7 +21,7 @@ interface ClientProps {
   id: String
 }
 
-type Client = ClientProps;
+export type Client = ClientProps;
 
 
 const clientsSlice = createSlice({

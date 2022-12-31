@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Form from "./containers/Form";
+import NewClientForm from "./containers/NewClientForm";
 import EditInfo from "./pages/EditInfo";
 import Layout from "./containers/Layout";
 import Home from "./pages/Home";
@@ -15,7 +15,7 @@ const App: React.FC = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Form />} />
+            <Route path="/register" element={<NewClientForm />} />
             <Route path="/edit-info" element={<EditInfo />} />
           </Routes>
         </Layout>

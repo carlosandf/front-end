@@ -1,11 +1,11 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import Form from '../containers/Form';
+import NewClientForm from '../containers/NewClientForm';
 
 const CreateClient = () => {
   return (
     <Container>
-      <Form />
+      <NewClientForm />
     </Container>
   )
 }

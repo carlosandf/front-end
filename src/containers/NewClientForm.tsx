@@ -16,7 +16,7 @@ const INITIAL_INPUTS_STATE = {
 
 const URL = import.meta.env.VITE_API_URL;
 
-const  Form: React.FC = () => {
+const NewClientForm: React.FC = () => {
   const [inputValue, setInputValue] = useState(INITIAL_INPUTS_STATE);
   const [message, setMessage] = useState<any>(null);
   const dispatch = useAppDispatch();
@@ -125,4 +125,4 @@ const  Form: React.FC = () => {
   );
 }
 
-export default Form
+export default NewClientForm;
