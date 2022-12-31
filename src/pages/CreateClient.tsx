@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import Form from '../components/Form';
+import Form from '../containers/Form';
 
 const CreateClient = () => {
   return (

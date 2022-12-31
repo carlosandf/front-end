@@ -2,9 +2,10 @@ import React from "react";
 import { Container } from "@mui/material"
 import Navbar from "../components/Navbar";
 
+
 const Layout = (props: any) => {
   return (
-    <Container>
+    <Container sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <Navbar />
       <Container>
         {props.children}

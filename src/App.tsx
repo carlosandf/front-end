@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Form from "./components/Form";
+import Form from "./containers/Form";
+import EditInfo from "./pages/EditInfo";
 import Layout from "./containers/Layout";
 import Home from "./pages/Home";
 import { Provider } from "react-redux";
@@ -15,6 +16,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Form />} />
+            <Route path="/edit-info" element={<EditInfo />} />
           </Routes>
         </Layout>
       </BrowserRouter>

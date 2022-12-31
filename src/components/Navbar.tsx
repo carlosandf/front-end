@@ -11,21 +11,16 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemText,
   Toolbar,
-  Typography,
   Button
 } from '@mui/material/';
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window;
 }
 
 const drawerWidth = 240;
+
 const navItems = [
   { name: 'Clients', route: '/' },
   { name: 'Add', route: '/register' },
@@ -41,15 +36,14 @@ const Navbar = (props: Props) => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', position: "fixed" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        Logo
-      </Typography>
       <Divider />
       <List>
         {navItems.map((item) => (
           <ListItem key={item.name} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item.name} />
+              <Button component={Link} to={item.route}  key={item.name}>
+                {item.name}
+              </Button>
             </ListItemButton>
           </ListItem>
         ))}
@@ -73,13 +67,6 @@ const Navbar = (props: Props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            Logo
-          </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button component={Link} to={item.route}  key={item.name} sx={{ color: '#fff' }}>

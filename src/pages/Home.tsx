@@ -1,7 +1,6 @@
 import Container from '@mui/material/Container';
-import ClientsTable from '../components/ClientsTable';
+import ClientsTable from '../containers/ClientsTable';
 import SearchInput from '../components/SearchInput';
-import UpdateModal from '../components/ModalInfo';
 
 const Home = () => {
 
@@ -13,7 +12,6 @@ const Home = () => {
     }}>
       <SearchInput />
       <ClientsTable />
-      <UpdateModal />
     </Container>
   )
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Box, Button } from '@mui/material/';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { useAppDispatch } from '../hooks/redux';
 import { setClients } from '../redux/slices/clients';
+import AlertMessage from '../components/AlertMessage';
 
 
 const INITIAL_INPUTS_STATE = {
@@ -17,6 +18,7 @@ const URL = import.meta.env.VITE_API_URL;
 
 const  Form: React.FC = () => {
   const [inputValue, setInputValue] = useState(INITIAL_INPUTS_STATE);
+  const [message, setMessage] = useState<any>(null);
   const dispatch = useAppDispatch();
 
   const handleChangeInput = (event:any, inputName:any) => {
@@ -37,9 +39,18 @@ const  Form: React.FC = () => {
       .then(res => {
         dispatch(setClients([res.data]));
         setInputValue(INITIAL_INPUTS_STATE);
-        alert('Se agregó correctamente');
+        setMessage(AlertMessage({message: "se agrego correctamente", severity: "success"}));
       })
-      .catch(() => alert('En numero de identificación ya se encuentra registrado'))
+      .catch(() => {
+        setMessage(AlertMessage({
+          message: "El número de identificación ya se encuentra registrado",
+          severity: "error"
+        }))
+      })
+
+    setTimeout(() => {
+      setMessage(null)
+    }, 4000)
   }
   return (
     <Box
@@ -59,6 +70,7 @@ const  Form: React.FC = () => {
         display: "grid",
         placeItems: "center"
       }}>
+        {message}
         <TextField
           required
           id="outlined-required"
