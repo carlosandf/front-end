@@ -14,7 +14,9 @@ import {
   ListItem,
   ListItemButton,
   Toolbar,
-  Button
+  Button,
+  Typography,
+  ListItemText
 } from '@mui/material/';
 
 interface Props {
@@ -38,12 +40,28 @@ const Navbar = (props: Props) => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', position: "fixed" }}>
+      <Typography variant="h6" sx={{ my: 2, fontWeight: 500 }}>
+        FacilPos
+      </Typography>
       <Divider />
       <List>
         {navItems.map((item) => (
           <ListItem key={item.name} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <Button component={Link} to={item.route}  key={item.name}>
+              <Button
+                sx={{
+                  textTransform: 'unset',
+                  display: 'flex',
+                  width: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 1.5
+                }}
+                variant='text'
+                component={Link}
+                to={item.route}
+                key={item.name}
+              >
                 {item.icon}
                 {item.name}
               </Button>
@@ -70,14 +88,29 @@ const Navbar = (props: Props) => {
           >
             <MenuIcon />
           </IconButton>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+            FacilPos
+          </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'flex',  } }}>
             {navItems.map((item) => (
               <Button component={Link} to={item.route}
-                key={item.name} sx={{ color: '#fff', display: 'flex', alignItems: 'stretch', marginRight: 3}}>
-                <span style={{marginRight: 10 }}>
-                  {item.icon}
-                </span>
-                <span>{item.name}</span>
+                key={item.name}
+                sx={{
+                  color: '#fff',
+                  textTransform: 'unset',
+                  display: 'flex',
+                  width: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 1.5,
+                  marginLeft: 2
+                }}>
+                {item.icon}
+                {item.name}
               </Button>
             ))}
           </Box>
