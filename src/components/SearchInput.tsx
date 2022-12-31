@@ -26,11 +26,11 @@ const SearchInput = () => {
   }
 
   return (
-    <Box sx={{display: 'flex', mb: 5}}>
+    <Box sx={{display: 'flex', mb: 5, width: '100%', justifyContent: 'center'}}>
       <Autocomplete
         disablePortal
         options={options}
-        sx={{ width: 400 }}
+        sx={{ width: '100%', maxWidth: '400px' }}
         onChange={(e, v: any) => setSearchValue(v)}
         renderInput={(params) => <TextField {...params} label="Search" />}
       />
