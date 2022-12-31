@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { TextField } from '@mui/material/';
 
+/*
+  ESTE COMPONENTE NO ESTÁ TERMINADO,
+  POR ENDE, NO ESTA SIENDO UTILIZADO AÚN.
+*/
 const Input = (props: any) => {
 
   const {value, handleChangeInput} = props;

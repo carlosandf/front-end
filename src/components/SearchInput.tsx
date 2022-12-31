@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {TextField, Autocomplete, Box, Button} from '@mui/material/';
+import { useEffect, useState } from 'react';
+import { TextField, Autocomplete, Box, Button } from '@mui/material/';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { Client, setAClient } from '../redux/slices/clients';

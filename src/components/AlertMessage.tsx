@@ -1,4 +1,3 @@
-import React from 'react';
 import Alert, { AlertColor } from '@mui/material/Alert';
 
 interface AlertProps {
