@@ -3,7 +3,7 @@ import { TextField, Autocomplete, Box, Button } from '@mui/material/';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { Client, setAClient } from '../redux/slices/clients';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 type InputValue = {id: String} | null
 
@@ -11,6 +11,7 @@ const SearchInput = () => {
   const [options, setOptions] = useState<Array<[]>>([]);
   const [searchValue, setSearchValue] = useState<InputValue>(null);
   const { clientsState: { clients } } = useAppSelector((state) => state);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -22,7 +23,8 @@ const SearchInput = () => {
   const handleSearch = () => {
     if (searchValue === null) return;
 
-    dispatch(setAClient(searchValue.id))
+    dispatch(setAClient(searchValue.id));
+    navigate(`/edit-info/${searchValue.id}`);
   }
 
   return (
@@ -35,7 +37,6 @@ const SearchInput = () => {
         renderInput={(params) => <TextField {...params} label="Search" />}
       />
       <Button
-        component={Link} to="/edit-info"
         onClick={handleSearch}
         disabled={searchValue === null ? true : false}
         variant='outlined'

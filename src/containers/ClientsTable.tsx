@@ -8,7 +8,7 @@ import { Typography, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import InfoModal from '../components/InfoModal';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const columns: GridColDef[] = [
   { field: 'firstName', headerName: 'Nombre', width: 130 },
@@ -22,9 +22,10 @@ const URL: string = import.meta.env.VITE_API_URL
 
 const ClientsTable = () => {
   const { clientsState: { clients }, openModal: {open} } = useAppSelector((state) => state);
-  const [selections, setSelections] = useState<GridRowId[]>([])
+  const [selections, setSelections] = useState<GridRowId[]>([]);
   const [loading, setLoading] = useState(true);
-  const [infoClient, setInfoClient] = useState({})
+  const [infoClient, setInfoClient] = useState({});
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -45,7 +46,7 @@ const ClientsTable = () => {
       const list = newList.filter((client: any) => client.id !== selection);
       newList = [...list];
     }
-    dispatch(setClients(newList))
+    dispatch(setClients(newList));
   }
 
   const handleView = (data: GridRowParams) => {
@@ -56,6 +57,7 @@ const ClientsTable = () => {
   const handleUpdate = () => {
     const selection: String = selections[0].toString();
     dispatch(setAClient(selection));
+    navigate(`/edit-info/${selection}`);
   }
 
   return (
@@ -102,7 +104,6 @@ const ClientsTable = () => {
         {
           selections.length === 1 && (
             <Button
-              component={Link} to="/edit-info"
               variant='outlined'
               sx={{margin: "10px 0", width: "100%", maxWidth: "400px"}}
               onClick={handleUpdate}

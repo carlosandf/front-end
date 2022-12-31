@@ -54,7 +54,8 @@ const Navbar = (props: Props) => {
                   width: '100%',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: 1.5
+                  gap: 1.5,
+                  fontSize: 17
                 }}
                 variant='text'
                 component={Link}
