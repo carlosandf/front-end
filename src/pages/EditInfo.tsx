@@ -1,10 +1,12 @@
 import { useAppSelector } from '../hooks/redux';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Box, Button, Typography } from '@mui/material/';
 import { useAppDispatch } from '../hooks/redux';
-import { Client, setClients } from '../redux/slices/clients';
+import { Client } from '../redux/slices/clients';
 import AlertMessage from '../components/AlertMessage';
+import { useNavigate } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -12,7 +14,8 @@ const EditInfo: React.FC = () => {
   const { clientsState: { client } } = useAppSelector((state) => state);
   const [inputValue, setInputValue] = useState<Client>({...client});
   const [message, setMessage] = useState<any>(null);
-  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChangeInput = (event:any, inputName:any) => {
     const { target: {value}} = event;
@@ -24,22 +27,38 @@ const EditInfo: React.FC = () => {
 
 
   const handleSubmit = () => {
+    setMessage(null);
+    setLoading(true);
+    let stateError = false;
     axios.put(`${URL}/${client.id}`, inputValue)
-      .then(res => {
-        dispatch(setClients([res.data]));
-        setInputValue(inputValue);
-        setMessage(AlertMessage({message: "se actualizo correctamente", severity: "success"}));
+      .then(() => {
+        setLoading(false);
+        setMessage(AlertMessage({
+          message: "se actualizo correctamente",
+          severity: "success"
+        }));
       })
-      .catch(() => {
+      .catch((err) => {
+        const codeName = err.response.data.codeName;
+        setLoading(false);
+        stateError = true;
+        if (codeName === 'DuplicateKey') {
+          return setMessage(AlertMessage({
+            message: "El numero de identificación ya se encuentra registrado",
+            severity: "error"
+          }));
+        }
         setMessage(AlertMessage({
           message: "Ups :( Hubo un error",
           severity: "error"
-        }))
-      })
+        }));
+      });
 
     setTimeout(() => {
-      setMessage(null)
-    }, 4000)
+      if (stateError) return;
+      setMessage(null);
+      navigate('/');
+    }, 3000);
   }
   return (
     <Box
@@ -58,6 +77,7 @@ const EditInfo: React.FC = () => {
         Editar Información
       </Typography>
 
+      { loading && <Loading /> }
       { message }
 
       <div style={{

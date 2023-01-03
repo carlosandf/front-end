@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import InfoModal from '../components/InfoModal';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 const columns: GridColDef[] = [
   { field: 'firstName', headerName: 'Nombre', width: 130 },
@@ -79,7 +80,7 @@ const ClientsTable = () => {
               sx={{cursor: "pointer"}}
             />
           )
-        : <Typography>Cargando...</Typography>
+        : <Loading />
       }
       <div style={{
         width: "100%",
